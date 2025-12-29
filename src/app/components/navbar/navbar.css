@@ -1,0 +1,14 @@
+.form-control:focus {
+  border-color: #dc3545;              /* Bootstrap danger red */
+  box-shadow: 0 0 0 0.2rem rgba(209, 59, 74, 0.452);
+} 
+a{
+    color: #000;
+    text-decoration: none;
+
+ } 
+ a:hover{
+    color: #dc3545;
+    text-decoration: underline;
+
+ }

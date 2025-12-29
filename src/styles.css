@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Fragment+Mono:ital@0;1&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    font-family: "Fragment Mono";
+    font-weight: 100;
+    overflow-x: hidden;
+}
+

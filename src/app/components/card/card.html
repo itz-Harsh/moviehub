@@ -1,0 +1,15 @@
+<div class="h-[30rem] w-[15rem] shadow-sm overflow-hidden " style=" cursor: pointer;">
+    <img *ngIf="item?.featured_image; else fallback" class="hover:scale-105 transition-all object-fit-contain w-100"
+        [src]="item.featured_image" />
+
+    <ng-template #fallback>
+        <img class="hover:scale-105 transition-all object-fit-contain w-100"
+            src="https://unexpected-yellow-dddwlmejhk-14avlyogbl.edgeone.app/images.png" />
+    </ng-template>
+    <div class="h-auto p-2">
+        <h6 class="w-[14rem] py-1">
+            {{ item.title || item.name }}
+        </h6>
+        <p class="bg-transparent text-xs text-dark-emphasis p-0 m-0 ">{{item.categories}}</p>
+    </div>
+</div>

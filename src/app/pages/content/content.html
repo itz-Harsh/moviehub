@@ -1,0 +1,28 @@
+<div>
+    <app-navbar></app-navbar>
+    <div class="relative mx-3">
+
+            <!-- Horizontal scroll area -->
+            <div #scrollContainer class="overflow-x-auto scroll-smooth">
+                <!-- Grid -->
+                <div class="grid grid-rows-2 grid-flow-col gap-4 w-max">
+                    <div *ngFor="let item of results" class="w-64 cursor-pointer" (click)="goToDetail(item)">
+                        <app-card [item]="item"></app-card>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Left Button -->
+            <button class="absolute md:block hidden left-0 top-1/2 -translate-y-1/2  bg-black/60 text-white px-3 py-2 rounded-full"
+                (click)="scrollLeft()">
+                ‹
+            </button>
+
+            <!-- Right Button -->
+            <button class="absolute md:block hidden right-0 top-1/2 -translate-y-1/2 bg-black/60 text-white px-3 py-2 rounded-full"
+                (click)="scrollRight()">
+                ›
+            </button>
+
+        </div>
+</div>

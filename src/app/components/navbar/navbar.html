@@ -1,0 +1,65 @@
+<nav class="my-3">
+  <div class="d-flex justify-content-between px-4 gap-5 align-items-center">
+
+    <!-- LOGO -->
+    <div class="w-50">
+      <a class="navbar-brand d-flex align-items-center" routerLink="/">
+        <h2 class="text-dark m-0">{{ title[0] }}</h2>
+        <h2 class="text-danger m-0 ms-1">{{ title[1] }}</h2>
+      </a>
+    </div>
+
+    <!-- NAV LINKS -->
+    <ul class="d-flex justify-content-between w-100 m-0 list-unstyled">
+      <li>
+        <a routerLink="/collection/bolly_movies">Bollywood</a>
+      </li>
+      <li>
+        <a routerLink="/collection/movies">Hollywood</a>
+      </li>
+      <li>
+        <a
+          routerLink="/search"
+          [queryParams]="{ q: 'web series' }"
+        >
+          Web Series
+        </a>
+      </li>
+      <li>
+        <a routerLink="/collection/anime">Anime</a>
+      </li>
+      <li>
+        <a
+          routerLink="/search"
+          [queryParams]="{ q: '18+' }"
+        >
+          18+
+        </a>
+      </li>
+    </ul>
+
+    <!-- SEARCH -->
+    <div class="position-relative w-100">
+      <form
+        class="d-flex w-100 px-5"
+        (ngSubmit)="onSubmit()"
+      >
+        <input
+          type="text"
+          name="search"
+          [(ngModel)]="searchQuery"
+          class="form-control rounded me-1 bg-transparent text-dark"
+          placeholder="Search Movies, Series here..."
+        />
+
+        <button
+          type="submit"
+          class="btn btn-sm bg-danger text-light px-3"
+        >
+          Search
+        </button>
+      </form>
+    </div>
+
+  </div>
+</nav>

@@ -1,0 +1,98 @@
+<div class="lg:hidden flex items-center justify-center h-screen">
+    Only For PC View
+</div>
+<div class="container-fluid hidden lg:block">
+    <app-navbar></app-navbar>
+
+
+    <div class="px-6 mt-4">
+        <h3 class="mb-4 text-xl font-semibold">
+            <li>Latest Movies and Series</li>
+        </h3>
+        <div class="grid grid-rows-2 grid-flow-col gap-4 w-max">
+            <div *ngFor="let item of results.Recent" class="w-64 cursor-pointer" (click)="goToDetail(item)">
+                <app-card [item]="item"></app-card>
+            </div>
+        </div>
+    </div>
+
+    <div class="px-6 mt-4">
+            <h3 class="mb-4 text-xl font-semibold">
+                <li>Trending Bollywood Movies</li>
+            </h3>
+             <div class="grid grid-rows-2 grid-flow-col gap-4 w-max">
+            <div *ngFor="let item of results.bollyMoviesTrend" class="w-64 cursor-pointer" (click)="goToDetail(item)">
+                <app-card [item]="item"></app-card>
+            </div>
+        </div>
+        </div>
+
+    
+
+    <div class="px-6 mt-4">
+        <h3 class="mb-4 text-xl font-semibold">
+            <li>Trending Hollywood Movies</li>
+        </h3>
+        <div class="grid grid-rows-2 grid-flow-col gap-4 w-max">
+            <div *ngFor="let item of results.hollyMoviesTrend" class="w-64 cursor-pointer" (click)="goToDetail(item)">
+                <app-card [item]="item"></app-card>
+            </div>
+        </div>
+    </div>
+
+
+     <div class="px-6 mt-4">
+            <h3 class="mb-4 text-xl font-semibold">
+                <li>Trending Bollywood Series</li>
+            </h3>
+             <div class="grid grid-rows-2 grid-flow-col gap-4 w-max">
+                    <div *ngFor="let item of results.bollySeriesTrend" class="w-64 cursor-pointer"
+                        (click)="goToDetail(item)">
+                        <app-card [item]="item"></app-card>
+                    </div>
+                </div>
+        </div>
+
+
+    <div class="px-6 mt-4">
+        <h3 class="mb-4 text-xl font-semibold">
+            <li>Trending Hollywood Series</li>
+        </h3>
+
+        <!-- Scroll wrapper -->
+        <div class="relative">
+
+            <!-- Horizontal scroll area -->
+            <div #scrollContainer class="overflow-x-auto scroll-smooth">
+                <!-- Grid -->
+                <div class="grid grid-rows-2 grid-flow-col gap-4 w-max">
+                    <div *ngFor="let item of results.hollySeriesTrend" class="w-64 cursor-pointer"
+                        (click)="goToDetail(item)">
+                        <app-card [item]="item"></app-card>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Left Button -->
+            <button
+                class="absolute  md:block hidden left-0 top-1/2 -translate-y-1/2  text-black px-3 py-2 rounded-full btn-lg"
+                (click)="scrollLeft()">
+                ‹
+            </button>
+
+            <!-- Right Button -->
+            <button
+                class="absolute md:block hidden  right-0 top-1/2 -translate-y-1/2 bg-black/60 text-white px-3 py-2 rounded-full"
+                (click)="scrollRight()">
+                ›
+            </button>
+
+        </div>
+
+    </div>
+
+
+    
+
+
+</div>
