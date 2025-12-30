@@ -31,22 +31,22 @@ export class Home {
 
   ngOnInit(): void {
     this.loading = true;
-    this.searchService.getTrending('movies', 30).subscribe(res => {
+    this.searchService.getTrending('movies', 50).subscribe(res => {
       this.results.hollyMoviesTrend = res;
       this.cdr.markForCheck();
     });
 
-    this.searchService.getTrending('bolly_movies', 30).subscribe(res => {
+    this.searchService.getTrending('bolly_movies', 50).subscribe(res => {
       this.results.bollyMoviesTrend = res;
       this.cdr.markForCheck();
     });
 
-    this.searchService.getTrending('bolly_series', 30).subscribe(res => {
+    this.searchService.getTrending('bolly_series', 50).subscribe(res => {
       this.results.bollySeriesTrend = res;
       this.cdr.markForCheck();
     });
 
-    this.searchService.getTrending('series', 30).subscribe(res => {
+    this.searchService.getTrending('series', 50).subscribe(res => {
       this.results.hollySeriesTrend = res;
       this.cdr.markForCheck();
     });
