@@ -16,7 +16,7 @@ import { FormsModule } from '@angular/forms';
 export class ContentDetail {
   type = '';
   id = ''
-  results: any = null;
+  results: any = null; 
   stream: any = null;
 
   selectedValue: any | null = 'Season 1';
@@ -44,7 +44,7 @@ export class ContentDetail {
         })
       ).subscribe(res => {
         this.results = res;
-        // console.log(this.results); 
+        console.log(this.results); 
         this.cdr.markForCheck();
       });
 
@@ -62,12 +62,13 @@ export class ContentDetail {
         })
       ).subscribe(res => {
         this.stream = res;
+        console.log(this.stream)
         // this.selectedValue = this.stream.seasons[0]
         this.cdr.markForCheck();
       });
   }
   select() {
-    console.log(this.selectedValue);
+    // console.log(this.selectedValue);
 
   }
 
