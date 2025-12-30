@@ -14,68 +14,84 @@ import { CommonModule } from '@angular/common';
   styleUrl: './content.css',
 })
 export class Content {
-  type: string = '';
-  results: any;
 
+  type = '';
+
+  allResults: any = [];   // full data from API
+  results: any[] = [];      // visible data (paged)
+
+  page = 1;
+  limit = 30;
+  loading = false;
+  hasMore = true;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private content: Service,
     private cdr: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.route.paramMap
-      .pipe(
-        switchMap(params => {
-          this.type = params.get('contentType') || '';
+    this.route.paramMap.subscribe(params => {
 
-          if (!this.type) {
-            return [];
-          }
-          if (this.type === 'bollywood') {
-            this.type = 'bolly_movies';
-          } else if (this.type === 'hollywood') {
-            this.type = 'movies';
-          }
+      this.type = params.get('contentType') || '';
 
-          return this.content.gotoCollection(this.type , 20);
-        })
-      ).subscribe(res => {
-        this.results = res;
-        this.results = this.results.data;
+      if (this.type === 'bollywood movies') this.type = 'bolly_movies';
+      if (this.type === 'hollywood movies') this.type = 'movies';
+      if (this.type === 'bollywood series') this.type = 'bolly_series';
+      if (this.type === 'hollywood series') this.type = 'series';
 
-        console.log(this.results);
-        this.cdr.markForCheck();
-      });
+      if (!this.type) return;
 
+      // reset state
+      this.page = 1;
+      this.results = [];
+      this.allResults = [];
+      this.hasMore = true;
+
+      this.fetchAll();
+    });
   }
-    goToDetail(item: any): void {
-    const type = this.type;
-    const id = item._id;
 
-    if (!type || !id) return;  
+  fetchAll(): void {
+    this.loading = true;
 
-    this.router.navigate(["content", type, id]);
-
+    // fetch ONCE
+    this.content.getTrending(this.type, 8000).subscribe(res => {
+      this.allResults = res || [];
+      this.loading = false;
+      this.appendPage();
+    });
   }
-  @ViewChild('scrollContainer', { static: false })
-scrollContainer!: ElementRef<HTMLDivElement>;
 
-scrollLeft() {
-  this.scrollContainer.nativeElement.scrollBy({
-    left: -700,
-    behavior: 'smooth'
-  });
+  appendPage(): void {
+    const start = (this.page - 1) * this.limit;
+    const end = start + this.limit;
+
+    const chunk = this.allResults.slice(start, end);
+
+    if (chunk.length === 0) {
+      this.hasMore = false;
+      return;
+    }
+
+    this.results = [...this.results, ...chunk];
+    this.page++;
+
+    this.cdr.markForCheck();
+  }
+
+  loadMore(): void {
+    if (this.loading || !this.hasMore) return;
+    this.appendPage();
+  }
+
+  goToDetail(item: any): void {
+    if (!item?._id) return;
+    this.router.navigate(['content', this.type, item._id]);
+  }
+
+
 }
 
-scrollRight() {
-  this.scrollContainer.nativeElement.scrollBy({
-    left: 800,
-    behavior: 'smooth'
-  });
-}
-
-
-}

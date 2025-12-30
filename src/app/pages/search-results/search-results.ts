@@ -18,7 +18,7 @@ import { log } from 'node:console';
 export class SearchResults {
   query = '';
   results: any[] = [];
-
+  loading = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +29,7 @@ export class SearchResults {
   ) {}
 
   ngOnInit(): void {
+    this.loading = true;
     this.route.queryParams
       .pipe(
         switchMap(params => {
@@ -42,6 +43,7 @@ export class SearchResults {
         this.cdr.markForCheck();
 
       });
+      this.loading = false;
   }
 
   goToDetail(item: any): void {

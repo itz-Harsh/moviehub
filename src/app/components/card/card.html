@@ -1,15 +1,80 @@
-<div class="h-[30rem] w-[15rem] shadow-sm overflow-hidden " style=" cursor: pointer;">
-    <img *ngIf="item?.featured_image; else fallback" class="hover:scale-105 transition-all object-fit-contain w-100"
-        [src]="item.featured_image" />
+<div
+  class="
+    cursor-pointer
+    bg-[#f1f1f1]
+    rounded-md
+    shadow-sm
+    overflow-hidden
+    flex flex-col
+    w-[10.5rem]
+    sm:w-[12rem]
+    lg:w-[14rem]
+    h-[22rem]
+    sm:h-[24rem]
+    lg:h-[24rem]
+  "
+>
+  <!-- IMAGE (locked height) -->
+  <div class="relative h-[70%] overflow-hidden group">
+    <img
+      *ngIf="item?.featured_image; else fallback"
+      [src]="item.featured_image"
+      class="
+        absolute inset-0
+        w-full h-full
+        object-cover
+        transition-transform duration-300 ease-out
+        group-hover:scale-110
+      "
+      alt=""
+    />
 
     <ng-template #fallback>
-        <img class="hover:scale-105 transition-all object-fit-contain w-100"
-            src="https://unexpected-yellow-dddwlmejhk-14avlyogbl.edgeone.app/images.png" />
+      <img
+        src="https://unexpected-yellow-dddwlmejhk-14avlyogbl.edgeone.app/images.png"
+        class="
+          absolute inset-0
+          w-full h-full
+          object-cover
+          transition-transform duration-300 ease-out
+          group-hover:scale-110
+        "
+        alt=""
+      />
     </ng-template>
-    <div class="h-auto p-2">
-        <h6 class="w-[14rem] py-1">
-            {{ item.title || item.name }}
-        </h6>
-        <p class="bg-transparent text-xs text-dark-emphasis p-0 m-0 ">{{item.categories}}</p>
-    </div>
+  </div>
+
+  <!-- CONTENT (locked height) -->
+  <div
+    class="
+      h-[7rem]
+      px-2 py-2
+      flex  flex-wrap
+      justify-between
+      overflow-hidden
+    "
+  >
+    <h6
+      class="
+        text-[0.90rem]
+        sm:text-[1rem]
+        font-medium
+        leading-snug
+        line-clamp-2
+        text-black
+      "
+    >
+      {{ item.title || item.name }}
+    </h6>
+
+    <p
+      class="
+        h-[3rem] overflow-hidden
+        text-xs
+        text-dark-emphasis m-0
+      "
+    >
+      {{ item.categories }}
+    </p>
+  </div>
 </div>

@@ -1,27 +1,31 @@
 <div class="container-fluid mb-5">
     <app-navbar></app-navbar>
 
-    <div class="d-flex align-items-center flex-column pt-2 gap-3 " *ngIf="results">
-        <h2 class="d-flex align-items-baseline gap-3">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-film"
+    <div class="d-flex align-items-center flex-column mt-5 pt-3 gap-3 " *ngIf="results">
+        <h2 class="d-flex align-items-center h-min gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" style="height: 25px;" fill="currentColor" class="bi bi-film"
                 viewBox="0 0 16 16">
                 <path
                     d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm4 0v6h8V1zm8 8H4v6h8zM1 1v2h2V1zm2 3H1v2h2zM1 7v2h2V7zm2 3H1v2h2zm-2 3v2h2v-2zM15 1h-2v2h2zm-2 3v2h2V4zm2 3h-2v2h2zm-2 3v2h2v-2zm2 3h-2v2h2z" />
             </svg>
-            <h2>{{results.title}}</h2>
+            <h2 class="m-0 font-semibold text-2xl sm:text-xl lg:text-4xl">{{results.title}}</h2>
         </h2>
-        <div> <img [src]="results.featured_image" alt=""> </div>
-        <p> {{results.categories}} </p>
-        <p> {{results.url_slug | titlecase}} </p>
-        <p> {{results.date | date:'dd MMM yyyy, hh:mm a'}} </p>
+        <div class=""> <img [src]="results.featured_image" alt="" class="h-[20rem] sm:h-[25rem] lg:h-[30rem]" > </div>
+        <span class="flex flex-column align-items-center gap-3 py-4 text-sm sm:text-xs lg:text-lg">
+            <p class="text-center "> {{results.categories}} </p>
+            <p> {{results.url_slug | titlecase}} </p>
+            <p> {{results.date | date:'dd MMM yyyy, hh:mm a'}} </p>
+        </span>
+
 
         <div *ngIf="type === 'movies' || type === 'bolly_movies' && results as movie"
             class="d-flex flex-column gap-3 align-items-center">
-            <h5>Movie Download Links : </h5>
-            <div *ngFor="let stream of stream.streams">
-                <button class="btn btn-dark">
-                    <a [href]="stream.url" 
-                        target=" "> {{results.title}} {{stream.source}} {{stream.quality}} ( {{stream.size}} ) </a>
+            <h5 class="font-medium text-lg sm:text-xl">Movie Download Links : </h5>
+            <div *ngFor="let stream of stream?.streams">
+                <button class="btn btn-dark  w-[16rem] sm:w-[15rem] rounded hover:scale-95 ">
+
+                    <a [href]="stream.url" target=" "> {{results.title}} {{stream.source}} {{stream.quality}} (
+                        {{stream.size}} ) </a>
                 </button>
             </div>
         </div>
@@ -34,10 +38,10 @@
 
 
             <select [(ngModel)]="selectedValue" class="p-2 rounded" (change)="select()">
-                <option value="" disabled selected class="">Select Season</option> 
+                <option value="" disabled selected class="">Select Season</option>
                 <option *ngFor="let season of stream?.seasons | keyvalue; let i = index" [ngValue]="season">Season
                     {{i+1}}</option>
-            </select> 
+            </select>
 
             <div *ngIf="selectedValue !== null" class=" m-3 ">
                 <div *ngFor="let episodes of selectedValue.value | keyvalue; let i = index" class="">
@@ -47,19 +51,23 @@
 
                     <div class="flex lg:px-5 my-3">
                         <div *ngFor="let episode of episodes.value.streams" class="w-fit px-2">
-                        
-                          <button class=" rounded bg-red-500 p-2  " >
-                            <a [href]="episode.url" target=" "  class="flex align-items-lg-center gap-2" >
-                                {{episode.quality}} 
-                            <p class="text-sm text-light">{{episode.size}}</p>
-                            </a>
-                        </button>  
-                     
-                        
+
+                            <button class=" rounded bg-red-500 p-2  ">
+                                <a [href]="episode.url" target=" " class="flex align-items-lg-center gap-2">
+                                    {{episode.quality}}
+                                    <p class="text-sm text-light">{{episode.size}}</p>
+                                </a>
+                            </button>
+
+
+                        </div>
                     </div>
-                    </div>
-                    
+
                 </div>
 
 
             </div>
+        </div>
+    </div>
+
+</div>

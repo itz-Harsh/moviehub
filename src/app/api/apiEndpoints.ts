@@ -16,8 +16,8 @@ export const API_ENDPOINTS = {
   trending: (type:String , limit?: number) =>
     `${API_BASE_URL}/api/trending/${type}?limit=${limit ? `${limit}` : ""}`,
 
-  recent: (contentType?: string) =>
-    `${API_BASE_URL}/api/recent${contentType ? `/${contentType}` : ""}`,
+  recent: (contentType?: string, limit?: number) =>
+    `${API_BASE_URL}/api/recent${contentType ? `/${contentType}?limit=${limit ? `${limit}` : ""}` : ""}`,
 
   Stream: (collection: string, id: string | number) =>
     `${formator}/${collection}/${id}`,

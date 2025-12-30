@@ -31,6 +31,7 @@ export class Navbar implements OnInit {
     this.router.navigate(['/search'], {
       queryParams: { q: this.searchQuery },
     });
+    this.searchQuery = ''
   }
   goToDetail(item: any): void {
     const type = item.contentType;

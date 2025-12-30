@@ -1,90 +1,81 @@
-import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
-import { Navbar } from "../../components/navbar/navbar";
-import { Service } from '../../services/search';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Card } from "../../components/card/card";
-
+import { Navbar } from '../../components/navbar/navbar';
+import { Card } from '../../components/card/card';
+import { Service } from '../../services/search';
 
 @Component({
   selector: 'app-home',
-  imports: [Navbar, CommonModule, Card],
+  standalone: true,
+  imports: [CommonModule, Navbar, Card],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home {
 
-  results: any = { 
-    hollySeriesTrend: [] = [],           //Added
-    bollySeriesTrend: [] = [],
-    Recent: [] = [],                    // Added
-    hollyMoviesTrend: [] = [],
-    bollyMoviesTrend: [] = []
+  loading = false;
+  results: any = {
+    Recent: [],
+    bollyMoviesTrend: [],
+    hollyMoviesTrend: [],
+    bollySeriesTrend: [],
+    hollySeriesTrend: []
   };
 
- constructor(
+  constructor(
     private router: Router,
     private searchService: Service,
     private cdr: ChangeDetectorRef
-
   ) {}
 
   ngOnInit(): void {
-  
-  this.searchService.getTrending('movies' , 20).subscribe(res => {
-    this.results.hollyMoviesTrend = res;
-    this.cdr.markForCheck(); // needed for zoneless
-  });
+    this.loading = true;
+    this.searchService.getTrending('movies', 30).subscribe(res => {
+      this.results.hollyMoviesTrend = res;
+      this.cdr.markForCheck();
+    });
 
+    this.searchService.getTrending('bolly_movies', 30).subscribe(res => {
+      this.results.bollyMoviesTrend = res;
+      this.cdr.markForCheck();
+    });
 
-  this.searchService.getTrending('bolly_movies' , 20).subscribe(res => {
-    this.results.bollyMoviesTrend = res;
-    this.cdr.markForCheck(); // needed for zoneless
-  });
+    this.searchService.getTrending('bolly_series', 30).subscribe(res => {
+      this.results.bollySeriesTrend = res;
+      this.cdr.markForCheck();
+    });
 
-  this.searchService.getTrending('bolly_series' , 20).subscribe(res => {
-    this.results.bollySeriesTrend = res;
-    this.cdr.markForCheck(); // needed for zoneless
-  });
+    this.searchService.getTrending('series', 30).subscribe(res => {
+      this.results.hollySeriesTrend = res;
+      this.cdr.markForCheck();
+    });
 
+    this.searchService.getRecent('',100).subscribe(res => {
+      this.results.Recent = res;
+      this.cdr.markForCheck();
+    });
 
-  this.searchService.getTrending('series' , 20).subscribe(res => {
-    this.results.hollySeriesTrend = res;
-    this.cdr.markForCheck(); // needed for zoneless
-  });
-
-  this.searchService.getRecent('').subscribe(res => {
-    this.results.Recent = res;
-    this.cdr.markForCheck(); // needed for zoneless
-  })
-  
-}
-
-  
-  
-  goToDetail(item: any): void {
-    const type = item.contentType;
-    const id = item._id;
-
-    if (!type || !id) return;
-
-    this.router.navigate(["content", type, id]);
-
+    this.loading = false;
   }
 
-  @ViewChild('scrollContainer', { static: false })
-scrollContainer!: ElementRef<HTMLDivElement>;
+  goToDetail(item: any): void {
+    if (!item?.contentType || !item?._id) return;
+    this.router.navigate(['content', item.contentType, item._id]);
+  }
 
-scrollLeft() {
-  this.scrollContainer.nativeElement.scrollBy({
-    left: -700,
-    behavior: 'smooth'
-  });
-}
+scrollFromButton(event: MouseEvent, offset: number) {
+  const button = event.currentTarget as HTMLElement;
 
-scrollRight() {
-  this.scrollContainer.nativeElement.scrollBy({
-    left: 800,
+  // find nearest scroll container
+  const container = button.parentElement?.querySelector(
+    '.overflow-x-auto'
+  ) as HTMLElement;
+
+  if (!container) return;
+
+  container.scrollBy({
+    left: offset,
     behavior: 'smooth'
   });
 }

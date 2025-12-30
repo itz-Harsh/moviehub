@@ -1,28 +1,41 @@
 <div>
     <app-navbar></app-navbar>
-    <div class="relative mx-3">
 
-            <!-- Horizontal scroll area -->
-            <div #scrollContainer class="overflow-x-auto scroll-smooth">
-                <!-- Grid -->
-                <div class="grid grid-rows-2 grid-flow-col gap-4 w-max">
-                    <div *ngFor="let item of results" class="w-64 cursor-pointer" (click)="goToDetail(item)">
-                        <app-card [item]="item"></app-card>
-                    </div>
+    <ng-container *ngIf="loading; else content">
+        <div class="min-h-screen flex items-center justify-center">
+            <div class="text-center">
+                <div class="spinner-border text-danger mb-3" role="status"></div>
+                <p class="text-sm text-muted">Loading...</p>
+            </div>
+        </div>
+    </ng-container>
+
+    <!-- MAIN CONTENT -->
+    <ng-template #content>
+        <div class="container-fluid px-3">
+
+            <div class="row mt-4
+              row-cols-2
+              row-cols-sm-3
+              row-cols-md-4
+              row-cols-lg-6
+              g-4">
+
+                <div class="col" *ngFor="let item of results" (click)="goToDetail(item)">
+                    <app-card [item]="item"></app-card>
                 </div>
+
             </div>
 
-            <!-- Left Button -->
-            <button class="absolute md:block hidden left-0 top-1/2 -translate-y-1/2  bg-black/60 text-white px-3 py-2 rounded-full"
-                (click)="scrollLeft()">
-                ‹
-            </button>
-
-            <!-- Right Button -->
-            <button class="absolute md:block hidden right-0 top-1/2 -translate-y-1/2 bg-black/60 text-white px-3 py-2 rounded-full"
-                (click)="scrollRight()">
-                ›
-            </button>
-
         </div>
+
+        <!-- Pages -->
+        <div class="flex justify-center my-10">
+            <button *ngIf="hasMore" (click)="loadMore()"
+                class="px-6 py-2 bg-red-600 hover:scale-110  transition-all   text-white rounded-lg">
+                Load More
+            </button>
+        </div>
+    </ng-template>
+
 </div>

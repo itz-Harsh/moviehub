@@ -44,7 +44,7 @@ export class ContentDetail {
         })
       ).subscribe(res => {
         this.results = res;
-        console.log(this.results);
+        // console.log(this.results); 
         this.cdr.markForCheck();
       });
 

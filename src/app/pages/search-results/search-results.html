@@ -1,14 +1,32 @@
-<div class="container-fluid " >
+<div class="container-fluid ">
     <app-navbar></app-navbar>
 
-    <span class="w-100 justify-content-center d-flex gap-2" *ngIf="query">Search results for<p class="text-danger">
-            {{query}}</p> </span>
-    <div class="mx-5">
-        <div class="row mt-4">
-        <div class="col-md-3 mb-4 gap-2" *ngFor="let item of results" (click)="goToDetail(item)">
-            <app-card [item]="item"></app-card>
+    <ng-container *ngIf="loading; else content">
+        <div class="min-h-screen flex items-center justify-center">
+            <div class="text-center">
+                <div class="spinner-border text-danger mb-3" role="status"></div>
+                <p class="text-sm text-muted">Loading...</p>
+            </div>
         </div>
-    </div>
-    </div>
+    </ng-container>
+
+    <!-- MAIN CONTENT -->
+    <ng-template #content>
+        <div class="container-fluid px-3">
+
+                <div class="row mt-4 row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-4">
+
+                    <div class="col" *ngFor="let item of results" (click)="goToDetail(item)">
+                        <app-card [item]="item"></app-card>
+                    </div>
+
+                </div>
+
+            </div>
+    </ng-template>
+
+
+
+   
 
 </div>

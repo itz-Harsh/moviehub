@@ -5,24 +5,28 @@ import { ContentDetail } from './pages/content-detail/content-detail';
 import { Content } from './pages/content/content';
 
 export const routes: Routes = [
-    {
-        path: '',
-        component: Home,  
-    },
-    {
-        path: 'content/:type/:id',
-        component: ContentDetail
-    },
-    {
-        path: 'search',
-        component: SearchResults,
-    },
-    {
-        path: 'collection/:contentType',
-        component: Content,
-    },
-    {
-        path: '**',
-        redirectTo: '',
-    },
+  {
+    path: '',
+    component: Home,
+
+  },
+  {
+    path: 'content/:type/:id',
+    component: ContentDetail,
+
+  },
+  {
+    path: 'search',
+    component: SearchResults,
+
+  },
+  {
+    path: 'collection/:contentType',
+    component: Content,
+
+  },
+  {
+    path: '**',
+    redirectTo: '',
+  },
 ];

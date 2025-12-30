@@ -1,65 +1,86 @@
 <nav class="my-3">
-  <div class="d-flex justify-content-between px-4 gap-5 align-items-center">
+  <div class="d-flex justify-content-between sm:justify-content-evenly align-items-center px-[1.1rem]">
 
     <!-- LOGO -->
-    <div class="w-50">
-      <a class="navbar-brand d-flex align-items-center" routerLink="/">
-        <h2 class="text-dark m-0">{{ title[0] }}</h2>
-        <h2 class="text-danger m-0 ms-1">{{ title[1] }}</h2>
-      </a>
-    </div>
+    <a class="navbar-brand d-flex sm:w-[21%] align-items-center text-decoration-none" routerLink="/">
+      <h2 class="text-dark m-0">{{ title[0] }}</h2>
+      <h2 class="text-danger m-0 ms-1">{{ title[1] }}</h2>
+    </a>
 
-    <!-- NAV LINKS -->
-    <ul class="d-flex justify-content-between w-100 m-0 list-unstyled">
-      <li>
-        <a routerLink="/collection/bolly_movies">Bollywood</a>
-      </li>
-      <li>
-        <a routerLink="/collection/movies">Hollywood</a>
-      </li>
-      <li>
-        <a
-          routerLink="/search"
-          [queryParams]="{ q: 'web series' }"
-        >
-          Web Series
-        </a>
-      </li>
-      <li>
-        <a routerLink="/collection/anime">Anime</a>
-      </li>
-      <li>
-        <a
-          routerLink="/search"
-          [queryParams]="{ q: '18+' }"
-        >
-          18+
-        </a>
-      </li>
-    </ul>
+    <!-- HAMBURGER (mobile only) -->
+    <button class="btn d-md-none bg-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"
+      aria-controls="mobileMenu">
+      ☰
+    </button>
 
-    <!-- SEARCH -->
-    <div class="position-relative w-100">
-      <form
-        class="d-flex w-100 px-5"
-        (ngSubmit)="onSubmit()"
-      >
-        <input
-          type="text"
-          name="search"
-          [(ngModel)]="searchQuery"
-          class="form-control rounded me-1 bg-transparent text-dark"
-          placeholder="Search Movies, Series here..."
-        />
+    <!-- DESKTOP NAV (hidden on mobile) -->
+    <div class="d-none d-md-flex align-items-center w-100 mx-3 gap-4">
 
-        <button
-          type="submit"
-          class="btn btn-sm bg-danger text-light px-3"
-        >
-          Search
-        </button>
+      <ul class="d-flex gap-4 list-unstyled m-0 ">
+        <li><a routerLink="/collection/bollywood movies">Bollywood Movies</a></li>
+        <li><a routerLink="/collection/hollywood movies">Hollywood Movies</a></li>
+        <li><a routerLink="/collection/bollywood series">Bollywood Series</a></li>
+        <li><a routerLink="/collection/hollywood series">Hollywood Series</a></li>
+        <li><a routerLink="/collection/anime">Anime</a></li>
+        <li>
+          <a routerLink="/search" [queryParams]="{ q: '18+' }">
+            18+
+          </a>
+        </li>
+      </ul>
+
+      <form class="flex gap-1" (ngSubmit)="onSubmit()">
+        <input type="text" [(ngModel)]="searchQuery" name="search" class="form-control " placeholder="Search..." />
+        <button class="btn bg-danger text-light w-[27%]">Search</button>
       </form>
-    </div>
 
+    </div>
   </div>
 </nav>
+
+<!-- ========== MOBILE RIGHT SIDE PANEL ========== -->
+
+<div class="offcanvas offcanvas-end overflow-hidden" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="mobileMenuLabel">
+      {{ title[0] }}<span class="text-danger">{{ title[1] }}</span>
+    </h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+
+  <div class="offcanvas-body">
+
+    <!-- SEARCH -->
+    <form class="mb-4" (ngSubmit)="onSubmit()" >
+      <input type="text" [(ngModel)]="searchQuery" name="search" class="form-control mb-2"
+        placeholder="Search Movies, Series..." autocomplete="off" />
+      <button class="btn bg-danger text-light w-100" data-bs-dismiss="offcanvas">
+        Search
+      </button>
+    </form>
+
+    <!-- LINKS -->
+    <ul class="list-unstyled d-flex flex-column gap-3">
+      <li><a routerLink="/collection/bollywood movies" data-bs-dismiss="offcanvas">Bollywood Movies</a></li>
+      <li><a routerLink="/collection/bollywood series" data-bs-dismiss="offcanvas">Bollywood Series</a></li>
+      <li><a routerLink="/collection/hollywood movies" data-bs-dismiss="offcanvas">Hollywood Movies</a></li>
+      <li><a routerLink="/collection/hollywood series" data-bs-dismiss="offcanvas">Hollywood Series</a></li>
+      <li><a routerLink="/collection/anime" data-bs-dismiss="offcanvas">Anime</a></li>
+      <li><a routerLink="/search" [queryParams]="{ q: '18+' }" data-bs-dismiss="offcanvas">18+</a></li>
+    </ul>
+
+
+   <footer
+  class="absolute bottom-3 left-1/2 -translate-x-1/2 text-center"
+>
+  Made with ❤️ by
+  <a
+    href="https://github.com/itz-Harsh"
+    target="_blank"
+  >
+    Harsh
+  </a>
+</footer>
+
+  </div>
+</div>

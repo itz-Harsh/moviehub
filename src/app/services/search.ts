@@ -28,9 +28,9 @@ getTrending( type: string , limit: number) {
   );
 }
 
-getRecent( contentType: string) {
+getRecent( contentType: string , limit:number) {
   return this.http.get(
-    API_ENDPOINTS.recent(contentType)
+    API_ENDPOINTS.recent(contentType,limit)
   );
 }
 
