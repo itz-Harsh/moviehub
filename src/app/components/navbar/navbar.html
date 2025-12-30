@@ -3,8 +3,8 @@
 
     <!-- LOGO -->
     <a class="navbar-brand d-flex sm:w-[21%] align-items-center text-decoration-none" routerLink="/">
-      <h2 class="text-dark m-0">{{ title[0] }}</h2>
-      <h2 class="text-danger m-0 ms-1">{{ title[1] }}</h2>
+      <h2 class="text-dark m-0 overflow-hidden">{{ title[0] }}</h2>
+      <h2 class="text-danger m-0 ms-1 overflow-hidden">{{ title[1] }}</h2>
     </a>
 
     <!-- HAMBURGER (mobile only) -->
@@ -43,7 +43,7 @@
 <div class="offcanvas offcanvas-end overflow-hidden" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title overflow-hidden" id="mobileMenuLabel">
-      {{ title[0] }}<span class="text-danger">{{ title[1] }}</span>
+      {{ title[0] }}<span class="text-danger overflow-hidden">{{ title[1] }}</span>
     </h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
   </div>
