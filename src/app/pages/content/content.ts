@@ -19,7 +19,7 @@ export class Content {
 
   allResults: any = [];   // full data from API
   results: any[] = [];      // visible data (paged)
-
+  title: string = '';
   page = 1;
   limit = 30;
   loading = false;
@@ -36,7 +36,7 @@ export class Content {
     this.route.paramMap.subscribe(params => {
 
       this.type = params.get('contentType') || '';
-
+      this.title = this.type;
       if (this.type === 'bollywood movies') this.type = 'bolly_movies';
       if (this.type === 'hollywood movies') this.type = 'movies';
       if (this.type === 'bollywood series') this.type = 'bolly_series';
