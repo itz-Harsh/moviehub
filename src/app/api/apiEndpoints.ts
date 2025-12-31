@@ -22,7 +22,8 @@ export const API_ENDPOINTS = {
   Stream: (collection: string, id: string | number) =>
     `${formator}/${collection}/${id}`,
 
-  
+  Plateform: (genres?: string, limit?: number) =>
+    `https://api.hicine.info/rpc/platform/${genres}?limit=${limit ? `${limit}` : ""}`,
 
   stats: `${API_BASE_URL}/api/stats`,
 } as const;

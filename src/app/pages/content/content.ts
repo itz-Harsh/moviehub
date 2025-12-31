@@ -1,29 +1,35 @@
-import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
-import { Navbar } from "../../components/navbar/navbar";
-import { switchMap } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-import { Service } from '../../services/search';
-import { Card } from "../../components/card/card";
-import { Router } from '@angular/router';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+
+import { Navbar } from '../../components/navbar/navbar';
+import { Card } from '../../components/card/card';
+import { Service } from '../../services/search';
 
 @Component({
   selector: 'app-content',
-  imports: [Navbar, Card , CommonModule],
+  standalone: true,
+  imports: [Navbar, Card, CommonModule],
   templateUrl: './content.html',
   styleUrl: './content.css',
 })
 export class Content {
 
+  // API type (machine-readable)
   type = '';
 
-  allResults: any = [];   // full data from API
-  results: any[] = [];      // visible data (paged)
-  title: string = '';
+  // UI title (human-readable)
+  title = '';
+
+  // pagination
   page = 1;
   limit = 30;
-  loading = false;
   hasMore = true;
+  loading = false;
+
+  // data
+  allResults: any;
+  results: any[] = [];
 
   constructor(
     private router: Router,
@@ -32,38 +38,52 @@ export class Content {
     private cdr: ChangeDetectorRef
   ) {}
 
+
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
+      const contentType = params.get('contentType');
+      const genre = params.get('genres');
 
-      this.type = params.get('contentType') || '';
-      this.title = this.type;
-      if (this.type === 'bollywood movies') this.type = 'bolly_movies';
-      if (this.type === 'hollywood movies') this.type = 'movies';
-      if (this.type === 'bollywood series') this.type = 'bolly_series';
-      if (this.type === 'hollywood series') this.type = 'series';
+      this.resetState();
 
-      if (!this.type) return;
+      // GENRE FLOW
+      if (genre) {
+        this.type = genre;
+        this.title = genre;
+        this.fetchGenres();
+        return;
+      }
 
-      // reset state
-      this.page = 1;
-      this.results = [];
-      this.allResults = [];
-      this.hasMore = true;
-
-      this.fetchAll();
+      // TRENDING FLOW
+      if (contentType) {
+        this.title = contentType;
+        this.type = this.mapContentType(contentType);
+        this.fetchTrending();
+      }
     });
   }
 
-  fetchAll(): void {
+
+  fetchTrending(): void {
     this.loading = true;
 
-    // fetch ONCE
     this.content.getTrending(this.type, 8000).subscribe(res => {
       this.allResults = res || [];
       this.loading = false;
       this.appendPage();
     });
   }
+
+  fetchGenres(): void {
+    this.loading = true;
+
+    this.content.getGenres(this.type, 8000).subscribe(res => {
+      this.allResults = res || [];
+      this.loading = false;
+      this.appendPage();
+    });
+  }
+
 
   appendPage(): void {
     const start = (this.page - 1) * this.limit;
@@ -93,5 +113,26 @@ export class Content {
   }
 
 
-}
+  resetState(): void {
+    this.page = 1;
+    this.hasMore = true;
+    this.loading = false;
+    this.results = [];
+    this.allResults = [];
+  }
 
+  mapContentType(type: string): string {
+    switch (type) {
+      case 'bollywood movies':
+        return 'bolly_movies';
+      case 'hollywood movies':
+        return 'movies';
+      case 'bollywood series':
+        return 'bolly_series';
+      case 'hollywood series':
+        return 'series';
+      default:
+        return type;
+    }
+  }
+}

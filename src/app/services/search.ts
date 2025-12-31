@@ -40,4 +40,11 @@ gotoCollection(collection: string , limit: number) {
   );
 }
 
+getGenres(genres: string , limit: number) {
+  return this.http.get(
+    API_ENDPOINTS.Plateform(genres , limit)
+  );
+}
+
+
 }

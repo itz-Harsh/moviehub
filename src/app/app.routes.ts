@@ -16,6 +16,11 @@ export const routes: Routes = [
 
   },
   {
+    path: 'category/:genres',
+    component: Content,
+
+  },
+  {
     path: 'search',
     component: SearchResults,
 
@@ -28,5 +33,5 @@ export const routes: Routes = [
   {
     path: '**',
     redirectTo: '',
-  },
+  }
 ];

@@ -1,19 +1,86 @@
-<nav class="my-3">
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="genresOrigin"
+  [cdkConnectedOverlayOpen]="isGenresOpen"
+  [cdkConnectedOverlayPositions]="positions"
+  [cdkConnectedOverlayHasBackdrop]="true"
+  (backdropClick)="isGenresOpen = false"
+>
+  <div class="bg-white shadow-xl  w-[20rem] z-[9999]">
+    <ul
+  class="grid grid-cols-2 gap-x-2 gap-y-1 py-2 p-0"
+  (click)="isGenresOpen = false"
+>
+  <li><a routerLink="/category/action" class="block px-4 py-2 hover:bg-gray-100">Action</a></li>
+  <li><a routerLink="/category/adventure" class="block px-4 py-2 hover:bg-gray-100">Adventure</a></li>
+
+  <li><a routerLink="/category/comedy" class="block px-4 py-2 hover:bg-gray-100">Comedy</a></li>
+  <li><a routerLink="/category/drama" class="block px-4 py-2 hover:bg-gray-100">Drama</a></li>
+
+  <li><a routerLink="/category/romance" class="block px-4 py-2 hover:bg-gray-100">Romance</a></li>
+  <li><a routerLink="/category/thriller" class="block px-4 py-2 hover:bg-gray-100">Thriller</a></li>
+
+  <li><a routerLink="/category/horror" class="block px-4 py-2 hover:bg-gray-100">Horror</a></li>
+  <li><a routerLink="/category/mystery" class="block px-4 py-2 hover:bg-gray-100">Mystery</a></li>
+
+  <li><a routerLink="/category/crime" class="block px-4 py-2 hover:bg-gray-100">Crime</a></li>
+  <li><a routerLink="/category/fantasy" class="block px-4 py-2 hover:bg-gray-100">Fantasy</a></li>
+
+  <li><a routerLink="/category/sci-fi" class="block px-4 py-2 hover:bg-gray-100">Sci-Fi</a></li>
+  <li><a routerLink="/category/animation" class="block px-4 py-2 hover:bg-gray-100">Animation</a></li>
+
+  <li><a routerLink="/category/family" class="block px-4 py-2 hover:bg-gray-100">Family</a></li>
+  <li><a routerLink="/category/music" class="block px-4 py-2 hover:bg-gray-100">Music</a></li>
+
+  <li><a routerLink="/category/war" class="block px-4 py-2 hover:bg-gray-100">War</a></li>
+  <li><a routerLink="/category/history" class="block px-4 py-2 hover:bg-gray-100">History</a></li>
+
+  <li><a routerLink="/category/documentary" class="block px-4 py-2 hover:bg-gray-100">Documentary</a></li>
+  <li><a routerLink="/category/adult" class="block px-4 py-2 text-red-600 hover:bg-red-50">18+ / Adult</a></li>
+
+  <li class="col-span-2">
+    <a routerLink="/category/2160p" class="block px-4 py-2 hover:bg-gray-100 text-center">
+      2160p (4K)
+    </a>
+  </li>
+</ul>
+
+  </div>
+</ng-template>
+
+
+
+
+
+
+
+
+
+<nav class="my-3  overflow-visible">
+
+
+
+
+
+
+
+
+
   <div class="d-flex justify-content-between sm:justify-content-evenly align-items-center px-[1.1rem]">
 
-    <!-- LOGO -->
+
+
     <a class="navbar-brand d-flex sm:w-[21%] align-items-center text-decoration-none" routerLink="/">
       <h2 class="text-dark m-0 overflow-hidden">{{ title[0] }}</h2>
       <h2 class="text-danger m-0 ms-1 overflow-hidden">{{ title[1] }}</h2>
     </a>
 
-    <!-- HAMBURGER (mobile only) -->
     <button class="btn d-md-none bg-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"
       aria-controls="mobileMenu">
       ☰
     </button>
 
-    <!-- DESKTOP NAV (hidden on mobile) -->
+
     <div class="d-none d-md-flex align-items-center w-100 mx-3 gap-4">
 
       <ul class="d-flex gap-4 list-unstyled m-0 ">
@@ -22,11 +89,35 @@
         <li><a routerLink="/collection/bollywood series">Bollywood Series</a></li>
         <li><a routerLink="/collection/hollywood series">Hollywood Series</a></li>
         <li><a routerLink="/collection/anime">Anime</a></li>
-        <li>
-          <a routerLink="/search" [queryParams]="{ q: '18+' }">
-            18+
-          </a>
-        </li>
+
+
+       <li class="d-none d-md-block">
+<button
+  cdkOverlayOrigin
+  #genresOrigin="cdkOverlayOrigin"
+  type="button"
+  class="bg-transparent border-0 d-none d-md-block flex items-center"
+  (click)="isGenresOpen = !isGenresOpen"
+
+> <span class="flex items-baseline gap-2">
+  Genres <svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+	 width="10px" height="10px" viewBox="0 0 30.727 30.727"
+	 xml:space="preserve">
+<g>
+	<path d="M29.994,10.183L15.363,24.812L0.733,10.184c-0.977-0.978-0.977-2.561,0-3.536c0.977-0.977,2.559-0.976,3.536,0
+		l11.095,11.093L26.461,6.647c0.977-0.976,2.559-0.976,3.535,0C30.971,7.624,30.971,9.206,29.994,10.183z"/>
+</g>
+</svg>
+</span>
+  
+</button>
+
+
+
+</li>
+
+     
+
       </ul>
 
       <form class="flex gap-1" (ngSubmit)="onSubmit()">
@@ -51,7 +142,7 @@
   <div class="offcanvas-body">
 
     <!-- SEARCH -->
-    <form class="mb-4" (ngSubmit)="onSubmit()" >
+    <form class="mb-4" (ngSubmit)="onSubmit()">
       <input type="text" [(ngModel)]="searchQuery" name="search" class="form-control mb-2"
         placeholder="Search Movies, Series..." autocomplete="off" />
       <button class="btn bg-danger text-light w-100" data-bs-dismiss="offcanvas">
@@ -70,17 +161,12 @@
     </ul>
 
 
-   <footer
-  class="absolute bottom-3 left-1/2 -translate-x-1/2 text-center"
->
-  Made with ❤️ by
-  <a
-    href="https://github.com/itz-Harsh"
-    target="_blank"
-  >
-    Harsh
-  </a>
-</footer>
+    <footer class="absolute bottom-3 left-1/2 -translate-x-1/2 text-center">
+      Made with ❤️ by
+      <a href="https://github.com/itz-Harsh" target="_blank">
+        Harsh
+      </a>
+    </footer>
 
   </div>
 </div>
