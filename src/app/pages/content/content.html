@@ -1,8 +1,8 @@
 <div>
     <app-navbar></app-navbar>
 
-    <ng-container *ngIf="loading; else content">
-        <div class="min-h-screen flex items-center justify-center">
+    <ng-container *ngIf="loading; else content ">
+        <div class="min-h-screen flex items-center justify-center border-t-[1px]">
             <div class="text-center">
                 <div class="spinner-border text-danger mb-3" role="status"></div>
                 <p class="text-sm text-muted">Loading...</p>
@@ -14,10 +14,10 @@
     <ng-template #content>
      
         
-        <div class="container-fluid px-3">
+        <div class="container-fluid px-3 mt-4 border-t-[1px]">
 
-            <h3 class="sm:m-4 font-semibold text-lg sm:text-xl lg:text-2xl">
-                <li class="font-semibold list-disc " > >>  {{title | titlecase}}</li>
+            <h3 class="sm:m-4 font-semibold text-xl m-1 py-3  sm:text-3xl">
+                <li class="font-semibold list-disc text-center  overflow-hidden" >  - {{title | uppercase}} -</li>
             </h3>
 
 

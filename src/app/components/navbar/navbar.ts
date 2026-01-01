@@ -14,7 +14,27 @@ export class Navbar implements OnInit {
   title = ['Movie','Hub'];
   searchQuery = '';
   results: any[] = [];
-
+  genres = [
+    { label: 'Action', slug: 'action' },
+    { label: 'Adventure', slug: 'adventure' },
+    { label: 'Comedy', slug: 'comedy' },
+    { label: 'Drama', slug: 'drama' },
+    { label: 'Romance', slug: 'romance' },
+    { label: 'Thriller', slug: 'thriller' },
+    { label: 'Horror', slug: 'horror' },
+    { label: 'Mystery', slug: 'mystery' },
+    { label: 'Crime', slug: 'crime' },
+    { label: 'Fantasy', slug: 'fantasy' },
+    { label: 'Sci-Fi', slug: 'sci-fi' },
+    { label: 'Animation', slug: 'animation' },
+    { label: 'Family', slug: 'family' },
+    { label: 'Music', slug: 'music' },
+    { label: 'War', slug: 'war' },
+    { label: 'History', slug: 'history' },
+    { label: 'Documentary', slug: 'documentary' },
+    { label: '18+ / Adult', slug: 'adult', danger: true },
+    { label: '2160p (4K)', slug: '2160p', full: true }
+  ];
 
 
   constructor( private router: Router) {}
@@ -79,5 +99,16 @@ closeGenres() {
   this.isGenresOpen = false;
 }
 
+openGenres = false;
+
+
+
+tGenres() {
+  this.openGenres = !this.openGenres;
+}
+
+goToGenre(genre: string) {
+  console.log(genre);
+}
 
 }

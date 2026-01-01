@@ -22,345 +22,217 @@
         </div>
     </ng-container>
 
-
     <ng-template #content>
-        <!-- Recent -->
-        <div class="px-6 mt-6">
-            <h3 class="mb-4  text-lg sm:text-xl lg:text-2xl">
+
+        <!-- ================= RECENT ================= -->
+        <div class="px-6 mt-2 md:mt-2">
+            <h3 class="mb-4 text-lg sm:text-xl lg:text-2xl">
                 <li class="font-semibold">Latest Movies and Series</li>
             </h3>
 
             <div class="relative">
-                <div #scroller class=" overflow-x-auto
-                                        scroll-smooth
-                                        no-scrollbar
-                                        touch-pan-x
-                                        overscroll-x-contain">
-
-
-                    <div class="grid grid-flow-col gap-4 w-max md:grid-rows-2 auto-cols-max">
-                        <div *ngFor="let item of results.Recent" class="cursor-pointer" (click)="goToDetail(item)">
+                <div
+                    #scroller
+                    class="overflow-x-auto scroll-smooth no-scrollbar touch-pan-x overscroll-x-contain"
+                    (scroll)="onHorizontalScroll($event, 'Recent')"
+                >
+                    <div class="grid grid-flow-col gap-3 w-max md:grid-rows-2 auto-cols-max">
+                        <div *ngFor="let item of results.Recent"
+                             class="cursor-pointer"
+                             (click)="goToDetail(item)">
                             <app-card [item]="item"></app-card>
                         </div>
                     </div>
                 </div>
 
                 <button
-  class="
-    hidden md:flex
-    absolute left-0 top-1/2 -translate-y-1/2
-    items-center justify-center
-    w-10 h-10
-    rounded-full
-    bg-black/50 text-white
-    text-2xl
-    backdrop-blur-sm
-    transition-all duration-300
-    hover:bg-black/80 hover:scale-110
-    active:scale-95
-    shadow-md
-    z-10
-  "
-  (click)="scrollFromButton($event, -800)"
->
-  ‹
-</button>
-
-
-
-                <button class="
-    hidden md:flex
-    absolute right-0 top-1/2 -translate-y-1/2
-    items-center justify-center
-    w-10 h-10
-    rounded-full
-    bg-black/50 text-white
-    text-2xl
-    backdrop-blur-sm
-    transition-all duration-300
-    hover:bg-black/80 hover:scale-110
-    active:scale-95
-    shadow-md
-    z-10
-  " (click)="scrollFromButton($event, 800)">
-                    ›
+                    class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2
+                           items-center justify-center w-10 h-10 rounded-full
+                           bg-black/50 text-white text-2xl backdrop-blur-sm
+                           transition-all duration-300 hover:bg-black/80 hover:scale-110
+                           active:scale-95 shadow-md z-10"
+                    (click)="scrollFromButton($event, -800)">
+                    ‹
                 </button>
 
+                <button
+                    class="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2
+                           items-center justify-center w-10 h-10 rounded-full
+                           bg-black/50 text-white text-2xl backdrop-blur-sm
+                           transition-all duration-300 hover:bg-black/80 hover:scale-110
+                           active:scale-95 shadow-md z-10"
+                    (click)="scrollFromButton($event, 800)">
+                    ›
+                </button>
             </div>
         </div>
 
-        <!-- Bollywood Movies -->
+        <!-- ================= BOLLYWOOD MOVIES ================= -->
         <div class="px-6 mt-6">
             <h3 class="mb-4 font-semibold text-lg sm:text-xl lg:text-2xl">
                 <li class="font-semibold">Trending Bollywood Movies</li>
             </h3>
 
             <div class="relative">
-                <div #scroller class=" overflow-x-auto
-                            scroll-smooth
-                            no-scrollbar
-                            touch-pan-x
-                            overscroll-x-contain">
-
-
-                    <div class="grid grid-flow-col gap-4 w-max
-                                        md:grid-rows-2
-                                        auto-cols-max
-                                        ">
-                        <div *ngFor="let item of results.bollyMoviesTrend" class="  cursor-pointer"
-                            (click)="goToDetail(item)">
+                <div
+                    #scroller
+                    class="overflow-x-auto scroll-smooth no-scrollbar touch-pan-x overscroll-x-contain"
+                    (scroll)="onHorizontalScroll($event, 'bollyMoviesTrend', 'bolly_movies')"
+                >
+                    <div class="grid grid-flow-col gap-3 w-max md:grid-rows-2 auto-cols-max">
+                        <div *ngFor="let item of results.bollyMoviesTrend"
+                             class="cursor-pointer"
+                             (click)="goToDetail(item)">
                             <app-card [item]="item"></app-card>
                         </div>
                     </div>
                 </div>
-<button
-  class="
-    hidden md:flex
-    absolute left-0 top-1/2 -translate-y-1/2
-    items-center justify-center
-    w-10 h-10
-    rounded-full
-    bg-black/50 text-white
-    text-2xl
-    backdrop-blur-sm
-    transition-all duration-300
-    hover:bg-black/80 hover:scale-110
-    active:scale-95
-    shadow-md
-    z-10
-  "
-  (click)="scrollFromButton($event, -800)"
->
-  ‹
-</button>
 
+                <button class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2
+                               items-center justify-center w-10 h-10 rounded-full
+                               bg-black/50 text-white text-2xl backdrop-blur-sm
+                               transition-all duration-300 hover:bg-black/80 hover:scale-110
+                               active:scale-95 shadow-md z-10"
+                        (click)="scrollFromButton($event, -800)">
+                    ‹
+                </button>
 
-
-                <button class="
-    hidden md:flex
-    absolute right-0 top-1/2 -translate-y-1/2
-    items-center justify-center
-    w-10 h-10
-    rounded-full
-    bg-black/50 text-white
-    text-2xl
-    backdrop-blur-sm
-    transition-all duration-300
-    hover:bg-black/80 hover:scale-110
-    active:scale-95
-    shadow-md
-    z-10
-  " (click)="scrollFromButton($event, 800)">
+                <button class="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2
+                               items-center justify-center w-10 h-10 rounded-full
+                               bg-black/50 text-white text-2xl backdrop-blur-sm
+                               transition-all duration-300 hover:bg-black/80 hover:scale-110
+                               active:scale-95 shadow-md z-10"
+                        (click)="scrollFromButton($event, 800)">
                     ›
                 </button>
             </div>
         </div>
 
-        <!-- HollywoOd Movies -->
+        <!-- ================= HOLLYWOOD MOVIES ================= -->
         <div class="px-6 mt-6">
             <h3 class="mb-4 font-semibold text-lg sm:text-xl lg:text-2xl">
                 <li class="font-semibold">Trending Hollywood Movies</li>
             </h3>
 
             <div class="relative">
-                <div #scroller class=" overflow-x-auto
-                                    scroll-smooth
-                                    no-scrollbar
-                                    touch-pan-x
-                                    overscroll-x-contain">
-
-
-                    <div class="grid grid-flow-col gap-4 w-max
-                                md:grid-rows-2
-                                auto-cols-max
-                                ">
-                        <div *ngFor="let item of results.hollyMoviesTrend" class="  cursor-pointer"
-                            (click)="goToDetail(item)">
+                <div
+                    #scroller
+                    class="overflow-x-auto scroll-smooth no-scrollbar touch-pan-x overscroll-x-contain"
+                    (scroll)="onHorizontalScroll($event, 'hollyMoviesTrend', 'movies')"
+                >
+                    <div class="grid grid-flow-col gap-3 w-max md:grid-rows-2 auto-cols-max">
+                        <div *ngFor="let item of results.hollyMoviesTrend"
+                             class="cursor-pointer"
+                             (click)="goToDetail(item)">
                             <app-card [item]="item"></app-card>
                         </div>
                     </div>
                 </div>
-               <button
-  class="
-    hidden md:flex
-    absolute left-0 top-1/2 -translate-y-1/2
-    items-center justify-center
-    w-10 h-10
-    rounded-full
-    bg-black/50 text-white
-    text-2xl
-    backdrop-blur-sm
-    transition-all duration-300
-    hover:bg-black/80 hover:scale-110
-    active:scale-95
-    shadow-md
-    z-10
-  "
-  (click)="scrollFromButton($event, -800)"
->
-  ‹
-</button>
 
+                <button class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2
+                               items-center justify-center w-10 h-10 rounded-full
+                               bg-black/50 text-white text-2xl backdrop-blur-sm
+                               transition-all duration-300 hover:bg-black/80 hover:scale-110
+                               active:scale-95 shadow-md z-10"
+                        (click)="scrollFromButton($event, -800)">
+                    ‹
+                </button>
 
-
-                <button class="
-    hidden md:flex
-    absolute right-0 top-1/2 -translate-y-1/2
-    items-center justify-center
-    w-10 h-10
-    rounded-full
-    bg-black/50 text-white
-    text-2xl
-    backdrop-blur-sm
-    transition-all duration-300
-    hover:bg-black/80 hover:scale-110
-    active:scale-95
-    shadow-md
-    z-10
-  " (click)="scrollFromButton($event, 800)">
+                <button class="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2
+                               items-center justify-center w-10 h-10 rounded-full
+                               bg-black/50 text-white text-2xl backdrop-blur-sm
+                               transition-all duration-300 hover:bg-black/80 hover:scale-110
+                               active:scale-95 shadow-md z-10"
+                        (click)="scrollFromButton($event, 800)">
                     ›
                 </button>
             </div>
         </div>
 
-        <!-- bollywood Series -->
+        <!-- ================= BOLLYWOOD SERIES ================= -->
         <div class="px-6 mt-6">
             <h3 class="mb-4 font-semibold text-lg sm:text-xl lg:text-2xl">
                 <li class="font-semibold">Trending Bollywood Series</li>
             </h3>
 
             <div class="relative">
-                <div #scroller class=" overflow-x-auto
-                                    scroll-smooth
-                                    no-scrollbar
-                                    touch-pan-x
-                                    overscroll-x-contain">
-
-
-                    <div class="grid grid-flow-col gap-4 w-max
-                                            md:grid-rows-2
-                                            auto-cols-max
-                                            ">
-                        <div *ngFor="let item of results.bollySeriesTrend" class="  cursor-pointer"
-                            (click)="goToDetail(item)">
+                <div
+                    #scroller
+                    class="overflow-x-auto scroll-smooth no-scrollbar touch-pan-x overscroll-x-contain"
+                    (scroll)="onHorizontalScroll($event, 'bollySeriesTrend', 'bolly_series')"
+                >
+                    <div class="grid grid-flow-col gap-3 w-max md:grid-rows-2 auto-cols-max">
+                        <div *ngFor="let item of results.bollySeriesTrend"
+                             class="cursor-pointer"
+                             (click)="goToDetail(item)">
                             <app-card [item]="item"></app-card>
                         </div>
                     </div>
                 </div>
-                <button
-  class="
-    hidden md:flex
-    absolute left-0 top-1/2 -translate-y-1/2
-    items-center justify-center
-    w-10 h-10
-    rounded-full
-    bg-black/50 text-white
-    text-2xl
-    backdrop-blur-sm
-    transition-all duration-300
-    hover:bg-black/80 hover:scale-110
-    active:scale-95
-    shadow-md
-    z-10
-  "
-  (click)="scrollFromButton($event, -800)"
->
-  ‹
-</button>
 
+                <button class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2
+                               items-center justify-center w-10 h-10 rounded-full
+                               bg-black/50 text-white text-2xl backdrop-blur-sm
+                               transition-all duration-300 hover:bg-black/80 hover:scale-110
+                               active:scale-95 shadow-md z-10"
+                        (click)="scrollFromButton($event, -800)">
+                    ‹
+                </button>
 
-
-                <button class="
-    hidden md:flex
-    absolute right-0 top-1/2 -translate-y-1/2
-    items-center justify-center
-    w-10 h-10
-    rounded-full
-    bg-black/50 text-white
-    text-2xl
-    backdrop-blur-sm
-    transition-all duration-300
-    hover:bg-black/80 hover:scale-110
-    active:scale-95
-    shadow-md
-    z-10
-  " (click)="scrollFromButton($event, 800)">
+                <button class="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2
+                               items-center justify-center w-10 h-10 rounded-full
+                               bg-black/50 text-white text-2xl backdrop-blur-sm
+                               transition-all duration-300 hover:bg-black/80 hover:scale-110
+                               active:scale-95 shadow-md z-10"
+                        (click)="scrollFromButton($event, 800)">
                     ›
                 </button>
             </div>
         </div>
 
-        <!-- Hollywood series -->
+        <!-- ================= HOLLYWOOD SERIES ================= -->
         <div class="px-6 mt-6 mb-10">
             <h3 class="mb-4 font-semibold text-lg sm:text-xl lg:text-2xl">
                 <li class="font-semibold">Trending Hollywood Series</li>
             </h3>
 
             <div class="relative">
-                <div #scroller class=" overflow-x-auto
-                                            scroll-smooth
-                                            no-scrollbar
-                                            touch-pan-x
-                                            overscroll-x-contain">
-
-
-                    <div class="grid grid-flow-col gap-4 w-max
-                                    md:grid-rows-2
-                                    auto-cols-max
-                                    ">
-                        <div *ngFor="let item of results.hollySeriesTrend" class="  cursor-pointer"
-                            (click)="goToDetail(item)">
+                <div
+                    #scroller
+                    class="overflow-x-auto scroll-smooth no-scrollbar touch-pan-x overscroll-x-contain"
+                    (scroll)="onHorizontalScroll($event, 'hollySeriesTrend', 'series')"
+                >
+                    <div class="grid grid-flow-col gap-3 w-max md:grid-rows-2 auto-cols-max">
+                        <div *ngFor="let item of results.hollySeriesTrend"
+                             class="cursor-pointer"
+                             (click)="goToDetail(item)">
                             <app-card [item]="item"></app-card>
                         </div>
                     </div>
                 </div>
 
-                <button
-  class="
-    hidden md:flex
-    absolute left-0 top-1/2 -translate-y-1/2
-    items-center justify-center
-    w-10 h-10
-    rounded-full
-    bg-black/50 text-white
-    text-2xl
-    backdrop-blur-sm
-    transition-all duration-300
-    hover:bg-black/80 hover:scale-110
-    active:scale-95
-    shadow-md
-    z-10
-  "
-  (click)="scrollFromButton($event, -800)"
->
-  ‹
-</button>
-
-
-
-                <button class="
-    hidden md:flex
-    absolute right-0 top-1/2 -translate-y-1/2
-    items-center justify-center
-    w-10 h-10
-    rounded-full
-    bg-black/50 text-white
-    text-2xl
-    backdrop-blur-sm
-    transition-all duration-300
-    hover:bg-black/80 hover:scale-110
-    active:scale-95
-    shadow-md
-    z-10
-  " (click)="scrollFromButton($event, 800)">
-                    ›
+                <button class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2
+                               items-center justify-center w-10 h-10 rounded-full
+                               bg-black/50 text-white text-2xl backdrop-blur-sm
+                               transition-all duration-300 hover:bg-black/80 hover:scale-110
+                               active:scale-95 shadow-md z-10"
+                        (click)="scrollFromButton($event, -800)">
+                    ‹
                 </button>
 
+                <button class="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2
+                               items-center justify-center w-10 h-10 rounded-full
+                               bg-black/50 text-white text-2xl backdrop-blur-sm
+                               transition-all duration-300 hover:bg-black/80 hover:scale-110
+                               active:scale-95 shadow-md z-10"
+                        (click)="scrollFromButton($event, 800)">
+                    ›
+                </button>
             </div>
         </div>
+
     </ng-template>
 
 
-
-
+    <app-footer></app-footer>
 </div>

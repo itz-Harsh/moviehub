@@ -79,6 +79,7 @@ export class Content {
 
     this.content.getGenres(this.type, 8000).subscribe(res => {
       this.allResults = res || [];
+      // console.log(all)
       this.loading = false;
       this.appendPage();
     });
@@ -108,6 +109,8 @@ export class Content {
   }
 
   goToDetail(item: any): void {
+    if ( item?.source_table) this.type =  this.mapContentType(item.source_table);
+
     if (!item?._id) return;
     this.router.navigate(['content', this.type, item._id]);
   }
@@ -130,6 +133,14 @@ export class Content {
       case 'bollywood series':
         return 'bolly_series';
       case 'hollywood series':
+        return 'series';
+      case 'bollywood_movies':
+        return 'bolly_movies';
+      case 'hollywood_movies':
+        return 'movies';
+      case 'bollywood_series':
+        return 'bolly_series';
+      case 'hollywood_series':
         return 'series';
       default:
         return type;

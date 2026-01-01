@@ -1,7 +1,7 @@
-<div class="container-fluid mb-5">
+<div class="container-fluid mb-5 ">
     <app-navbar></app-navbar>
 
-    <div class="d-flex align-items-center flex-column mt-5 pt-3 gap-3 " *ngIf="results">
+    <div class="d-flex align-items-center flex-column mt-4 pt-3 gap-3 border-t-[1px]" *ngIf="results">
         <h2 class="d-flex align-items-center h-min gap-3">
             <svg xmlns="http://www.w3.org/2000/svg" style="height: 25px;" fill="currentColor" class="bi bi-film"
                 viewBox="0 0 16 16">
@@ -10,7 +10,7 @@
             </svg>
             <h2 class="m-0 font-semibold text-2xl sm:text-xl lg:text-4xl">{{results.title}}</h2>
         </h2>
-        <div class=""> <img [src]="results.featured_image" alt="" class="h-[20rem] sm:h-[25rem] lg:h-[30rem]"> </div>
+        <div class=""> <img [src]="results.featured_image" alt="" class="h-[20rem] sm:h-[25rem] border-2 lg:h-[30rem]"> </div>
         <span class="flex flex-column align-items-center gap-3 py-4 text-sm sm:text-xs lg:text-lg">
             <p class="text-center "> {{results.categories}} </p>
             <p> {{results.url_slug | titlecase}} </p>
@@ -20,7 +20,7 @@
 
         <div *ngIf="type === 'movies' || type === 'bolly_movies' && results as movie"
             class="d-flex flex-column gap-3 align-items-center">
-            <h5 class="font-medium text-lg sm:text-xl">Movie Download Links : </h5>
+            <h4 class="font-medium text-lg sm:text-xl overflow-hidden">Movie Download Links</h4>
            <div *ngIf="stream?.streams?.length === 0">
                 No Link Found
                 </div>
@@ -37,7 +37,7 @@
         <div *ngIf="type === 'series' || type === 'bolly_series' || type === 'anime'  && results as series"
             class="flex flex-column align-items-center">
 
-            <h4>Series Download links</h4>
+            <h4 class="overflow-hidden">Series Download links</h4>
 
 
             <select [(ngModel)]="selectedValue" class="p-2 rounded" (change)="select()">
