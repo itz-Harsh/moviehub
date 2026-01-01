@@ -1,136 +1,164 @@
-# MovieHub 🎬✨
 
-Welcome to MovieHub — a sleek, minimal Angular app for browsing and downloading movies & series. Perfect for demoing a media-collection UI with trending lists, recent uploads, and series season/episode download links.
+🎬 MovieHub — Your Movie Playground
+=================================
 
-- 🚀 Built with Angular
-- 🎨 Tailwind CSS for styling
-- 🔁 Horizontal scrolling lists for series
-- 📂 Simple component structure: navbar, card, pages (home, content, content-detail)
+Welcome! 🎉
 
----
+MovieHub is a friendly, fast, and focused movie UI.
+Packed with neat UI pieces, smooth navigation, and ✨ delightful UX.
 
-## Features
+Why MovieHub
+-----------
 
-- 🎞️ Latest Movies & Series view
-- 🔥 Trending Bollywood & Hollywood sections
-- 📺 Series with season/episode selectors and download links
-- 🧭 Search results and collections routing
-- ♿ Responsive design (desktop-first, mobile notice)
+- ❤️ Designed for movie lovers
+- ⚡ Snappy interactions
+- 📱 Works great on mobile & desktop
+- 🎨 Clean, modern look
 
----
+Top Features
+------------
 
-## Quick Start
+- 🎞️ Browse curated lists
+- 🔎 Fast search & filter
+- ⭐ Mark favorites
+- 🗂️ Simple, clear pages
+- ♿ Accessibility-aware
+- 🌓 Theme: dark + light
 
-Prerequisites:
-- Node.js (16+ recommended)
-- npm
+What you'll see
+---------------
 
-Install and run:
+- Nice card grid for titles
+- Detail pages with poster + meta
+- Responsive navbar
+- Tiny animations for polish
+
+Tech Stack
+----------
+
+- Angular — app core
+- Tailwind CSS — utilities
+- Bootstrap — grid & helpers
+- Vite / static output via Angular build
+
+Project Layout
+--------------
+
+- `src/` — source
+	- `app/` — app code
+		- `components/` — reusable UI
+			- `card/`, `navbar/`, `footer/`
+		- `pages/` — views
+			- `home/`, `content/`, `content-detail/`, `search-results/`
+		- `api/` — config & endpoints (internal)
+	- `styles.css` — global styles
+
+Install & Run (local)
+---------------------
+
+1) Install deps
 
 ```bash
-# install dependencies
 npm install
+```
 
-# start (uses the `start` script from package.json)
+2) Start dev server
+
+```bash
 npm start
 ```
 
-Open your browser at http://localhost:4200 (or the port configured by the app).
+3) Open in browser
 
----
-
-## Project Structure (high level)
-```
-├── 📁 .angular
-├── 📁 public
-│   └── 📄 favicon.ico
-├── 📁 src
-│   ├── 📁 app
-│   │   ├── 📁 api
-│   │   │   ├── 📄 apiConfig.ts
-│   │   │   └── 📄 apiEndpoints.ts
-│   │   ├── 📁 components
-│   │   │   ├── 📁 card
-│   │   │   │   ├── 🎨 card.css
-│   │   │   │   ├── 🌐 card.html
-│   │   │   │   ├── 📄 card.spec.ts
-│   │   │   │   └── 📄 card.ts
-│   │   │   └── 📁 navbar
-│   │   │       ├── 🎨 navbar.css
-│   │   │       ├── 🌐 navbar.html
-│   │   │       ├── 📄 navbar.spec.ts
-│   │   │       └── 📄 navbar.ts
-│   │   ├── 📁 pages
-│   │   │   ├── 📁 content
-│   │   │   │   ├── 🎨 content.css
-│   │   │   │   ├── 🌐 content.html
-│   │   │   │   ├── 📄 content.spec.ts
-│   │   │   │   └── 📄 content.ts
-│   │   │   ├── 📁 content-detail
-│   │   │   │   ├── 🎨 content-detail.css
-│   │   │   │   ├── 🌐 content-detail.html
-│   │   │   │   ├── 📄 content-detail.spec.ts
-│   │   │   │   └── 📄 content-detail.ts
-│   │   │   ├── 📁 home
-│   │   │   │   ├── 🎨 home.css
-│   │   │   │   ├── 🌐 home.html
-│   │   │   │   ├── 📄 home.spec.ts
-│   │   │   │   └── 📄 home.ts
-│   │   │   └── 📁 search-results
-│   │   │       ├── 🎨 search-results.css
-│   │   │       ├── 🌐 search-results.html
-│   │   │       ├── 📄 search-results.spec.ts
-│   │   │       └── 📄 search-results.ts
-│   │   ├── 📁 services
-│   │   │   ├── 📄 search.spec.ts
-│   │   │   └── 📄 search.ts
-│   │   ├── 📄 app.config.server.ts
-│   │   ├── 📄 app.config.ts
-│   │   ├── 🎨 app.css
-│   │   ├── 🌐 app.html
-│   │   ├── 📄 app.routes.server.ts
-│   │   ├── 📄 app.routes.ts
-│   │   ├── 📄 app.spec.ts
-│   │   └── 📄 app.ts
-│   ├── 🌐 index.html
-│   ├── 📄 main.server.ts
-│   ├── 📄 main.ts
-│   ├── 📄 server.ts
-│   └── 🎨 styles.css
-├── ⚙️ .editorconfig
-├── ⚙️ .gitignore
-├── 📝 README.md
-├── ⚙️ angular.json
-├── ⚙️ package-lock.json
-├── ⚙️ package.json
-├── 📄 postcss.config.cjs
-├── 📄 tailwind.config.cjs
-├── ⚙️ tsconfig.app.json
-├── ⚙️ tsconfig.json
-└── ⚙️ tsconfig.spec.json
+```bash
+http://localhost:4200
 ```
 
-(See the `src/app` folder for full structure.)
+Build (prod)
+------------
 
----
+```bash
+npm run build
+```
 
-## Notes
+This outputs a static build suitable for hosting.
 
-- The app currently emphasizes desktop (large-screen) layout — mobile shows a message for PC view in `home.html`.
-- Horizontal series scroller uses programmatic `scrollLeft` / `scrollRight` handlers.
+Dev Tips
+--------
 
----
+- Use small poster images for speed 🖼️
+- Run in mobile viewport to test layout 📱
+- Keep component props tiny and focused ✂️
 
-## Contributing
+Styling & Theme
+---------------
 
-Feel free to open issues or send PRs. Small improvements: accessibility, mobile layout, caching, and unit tests.
+- Tailwind gives utility classes
+- Bootstrap used for helpers & grid
+- Theme toggles supported (light/dark)
 
----
+Accessibility
+-------------
 
-## License
+- Keyboard navigation friendly ⌨️
+- Contrast-conscious colors
+- Alt text on images recommended
 
-MIT — adapt as needed.
+Testing
+-------
 
----
+- Unit tests live near components
+- Run tests with your test script
 
-Thanks for checking out MovieHub! 🎥🍿
+Contributing
+------------
+
+- Love it? Help out! 🙌
+- Fork → branch → PR
+- Keep PRs small & focused
+- Use clear commit messages
+
+Code Style
+----------
+
+- Prefer readable names
+- Small functions > big ones
+- Keep CSS scoped to components
+
+Deployment Ideas
+----------------
+
+- Host static files on any CDN
+- Netlify / Vercel / static hosters work great
+
+Troubleshooting
+---------------
+
+- Dev server won't start? Check logs.
+- Layout odd on mobile? Clear cache, test emulation.
+
+Roadmap
+-------
+
+- Add user favorites persistence
+- Improve search UX
+- More themes & small UX polish
+
+Credits
+-------
+
+- Built with care by the MovieHub crew
+
+Contact
+-------
+
+- Say hi and share ideas! 💌
+
+License
+-------
+
+- MIT — share & enjoy
+
+Thanks for checking out MovieHub! 🍿
+
+Enjoy exploring and improving it — happy coding! 💫
