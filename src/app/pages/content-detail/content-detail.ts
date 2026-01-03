@@ -37,14 +37,14 @@ export class ContentDetail {
           this.id = params.get('id') || '';
 
           if (!this.type || !this.id) {
-            return [];
+            return []; 
           }
 
           return this.contentDetail.getDetail(this.type, this.id);
         })
       ).subscribe(res => {
         this.results = res;
-        console.log(this.results); 
+        // console.log(this.results); 
         this.cdr.markForCheck();
       });
 
@@ -62,13 +62,13 @@ export class ContentDetail {
         })
       ).subscribe(res => {
         this.stream = res;
-        console.log(this.stream)
+        // console.log(this.stream)
         // this.selectedValue = this.stream.seasons[0]
         this.cdr.markForCheck();
       });
   }
   select() {
-    // console.log(this.selectedValue);
+    console.log(this.selectedValue);
 
   }
 

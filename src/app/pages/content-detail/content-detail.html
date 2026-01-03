@@ -46,7 +46,7 @@
                 No Link Found
                 </div>
                 <option *ngFor="let season of stream?.seasons | keyvalue; let i = index" [ngValue]="season">Season
-                    {{i+1}}</option>
+                    {{ season.key.toString().split('_')[1] }}</option>
             </select>
 
            <div
@@ -124,11 +124,11 @@
                 </div>
 
                 <div class="flex w-[90%] sm:w-[30rem] lg:px-5 my-3">
-                    <div *ngFor="let episode of episodes.value.streams" class="w-fit px-2">
+                    <div *ngFor="let episode of episodes.value" class="w-fit px-2">
 
                         <button class=" rounded bg-red-500 p-2  hover:scale-95 ">
                             <a [href]="episode.url" target=" " class="flex align-items-lg-center gap-2">
-                                {{episode.quality}}
+                                {{episode.size}}
 
                             </a>
                         </button>
