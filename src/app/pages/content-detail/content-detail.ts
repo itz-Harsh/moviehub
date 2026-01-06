@@ -6,6 +6,7 @@ import { switchMap } from 'rxjs';
 import { CommonModule, DatePipe } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ViewCountService } from '../../services/appwrite';
 
 @Component({
   selector: 'app-content-detail',
@@ -26,7 +27,8 @@ export class ContentDetail {
   constructor(
     private route: ActivatedRoute,
     private contentDetail: Service,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private appwrite: ViewCountService,
   ) { }
 
   ngOnInit(): void {
@@ -44,7 +46,11 @@ export class ContentDetail {
         })
       ).subscribe(res => {
         this.results = res;
-        // console.log(this.results); 
+        
+        const data = this.results
+        console.log(data)
+        this.appwrite.trackView(data._id , data.featured_image , data.title , data.categories , this.type)
+          
         this.cdr.markForCheck();
       });
 
@@ -62,8 +68,6 @@ export class ContentDetail {
         })
       ).subscribe(res => {
         this.stream = res;
-        // console.log(this.stream)
-        // this.selectedValue = this.stream.seasons[0]
         this.cdr.markForCheck();
       });
   }

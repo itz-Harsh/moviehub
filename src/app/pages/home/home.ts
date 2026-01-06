@@ -5,6 +5,7 @@ import { Navbar } from '../../components/navbar/navbar';
 import { Card } from '../../components/card/card';
 import { Service } from '../../services/search';
 import { Footer } from "../../components/footer/footer";
+import { ViewCountService } from '../../services/appwrite';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +20,7 @@ export class Home {
 
   results: any = {
     Recent: [],
+    trendRes: [],
     bollyMoviesTrend: [],
     hollyMoviesTrend: [],
     bollySeriesTrend: [],
@@ -29,6 +31,7 @@ export class Home {
 
   sectionState: any = {
     Recent: { limit: 50, loading: false, hasMore: true },
+    trending: { limit: 5, loading: false, hasMore: true },
     bollyMoviesTrend: { limit: 20, loading: false, hasMore: true },
     hollyMoviesTrend: { limit: 20, loading: false, hasMore: true },
     bollySeriesTrend: { limit: 20, loading: false, hasMore: true },
@@ -38,18 +41,29 @@ export class Home {
   constructor(
     private router: Router,
     private searchService: Service,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private viewCount: ViewCountService
   ) {}
 
   ngOnInit(): void {
     this.loadRecent();
+    this.trending();
     this.loadTrending('bollyMoviesTrend', 'bolly_movies');
     this.loadTrending('hollyMoviesTrend', 'movies');
     this.loadTrending('bollySeriesTrend', 'bolly_series');
     this.loadTrending('hollySeriesTrend', 'series');
   }
 
+ async trending() {
+  this.loading = true;
 
+  try {
+    this.results.trendRes = await this.viewCount.loadTrending(10);
+  } finally {
+    this.loading = false;
+    this.cdr.markForCheck();
+  }
+}
 
   loadTrending(key: string, type: string) {
     const state = this.sectionState[key];
@@ -130,7 +144,7 @@ export class Home {
 
 
   goToDetail(item: any): void {
-    if (!item?.contentType || !item?._id) return;
-    this.router.navigate(['content', item.contentType, item._id]);
+    const id = item._id ? item._id : item.contentId;
+    this.router.navigate(['content', item.contentType, id ]);
   }
 }

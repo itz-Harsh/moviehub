@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Service } from '../../services/search';
 import { switchMap } from 'rxjs';
-import { Navbar } from '../../components/navbar/navbar';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef } from '@angular/core';
-import { Card } from "../../components/card/card";
-import { log } from 'node:console';
+
+import { Service } from '../../services/search';
+import { Navbar } from '../../components/navbar/navbar';
+import { Card } from '../../components/card/card';
+
 
 @Component({
   selector: 'app-search-results',
@@ -21,29 +21,34 @@ export class SearchResults {
   loading = false;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private searchService: Service,
-    private cdr: ChangeDetectorRef
+      private route: ActivatedRoute,
+      private router: Router,
 
-  ) {}
+      private searchService: Service,
+      private cdr: ChangeDetectorRef
+    ) {}
 
-  ngOnInit(): void {
-    this.loading = true;
+   ngOnInit(): void {
     this.route.queryParams
       .pipe(
         switchMap(params => {
+          this.loading = true;
           this.query = params['q'] || '';
           return this.searchService.search(this.query);
         })
       )
-      .subscribe(res => {
-        this.results = res;
-        // console.log(this.results);
-        this.cdr.markForCheck();
-
+      .subscribe({
+        next: res => {
+          this.results = res;
+          this.loading = false;
+          
+          
+          this.cdr.markForCheck();
+        },
+        error: () => {
+          this.loading = false;
+        }
       });
-      this.loading = false;
   }
 
   goToDetail(item: any): void {
