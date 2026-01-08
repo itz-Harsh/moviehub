@@ -49,7 +49,7 @@ export class ContentDetail {
         
         const data = this.results
         console.log(data)
-        this.appwrite.trackView(data._id , data.featured_image , data.title , data.categories , this.type)
+        this.appwrite.trackView(data.record_id , data.featured_image , data.title , data.categories , this.type)
           
         this.cdr.markForCheck();
       });

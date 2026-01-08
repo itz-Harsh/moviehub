@@ -144,7 +144,7 @@ export class Home {
 
 
   goToDetail(item: any): void {
-    const id = item._id ? item._id : item.contentId;
+    const id = item.record_id;
     this.router.navigate(['content', item.contentType, id ]);
   }
 }

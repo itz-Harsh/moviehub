@@ -19,18 +19,18 @@ export class ViewCountService {
    * 🔹 Track a view (create if not exists, else increment)
    */
   async trackView(
-    contentId: string,
+    record_id: number,
     featured_image: string,
     title: string,
     categories:string,
     contentType: string
   ): Promise<void> {
-    if (!contentId || !contentType) return;
+    if (!record_id || !contentType) return;
 
     const res = await this.db.listDocuments(
       this.databaseId,
       this.collectionId,
-      [Query.equal('contentId', contentId)]
+      [Query.equal('featured_image', featured_image)]
     );
 
     // If document exists → increment
@@ -41,8 +41,13 @@ export class ViewCountService {
         this.databaseId,
         this.collectionId,
         doc.$id,
-        {
-          count: (doc as any).count + 1
+          {record_id,
+          title,
+          featured_image,
+          contentType,
+          count: (doc as any).count + 1,
+          categories
+
         }
       );
       return;
@@ -54,7 +59,7 @@ export class ViewCountService {
       this.collectionId,
       ID.unique(),
       {
-        contentId,
+        record_id,
         title,
         featured_image,
         contentType,
@@ -67,7 +72,7 @@ export class ViewCountService {
   /**
    * 🔹 Load all trending items (sorted by count DESC)
    */
-  async loadTrending(limit: number = 20): Promise<any[]> {
+  async loadTrending(limit: number = 10): Promise<any[]> {
     const res = await this.db.listDocuments(
       this.databaseId,
       this.collectionId,
