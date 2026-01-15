@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Navbar } from '../../components/navbar/navbar';
 import { Card } from '../../components/card/card';
@@ -10,7 +10,7 @@ import { ViewCountService } from '../../services/appwrite';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, Navbar, Card, Footer],
+  imports: [RouterLink , CommonModule, Navbar, Card, Footer],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -59,6 +59,7 @@ export class Home {
 
   try {
     this.results.trendRes = await this.viewCount.loadTrending(10);
+    console.log(this.results.trendRes);
   } finally {
     this.loading = false;
     this.cdr.markForCheck();
@@ -142,9 +143,8 @@ export class Home {
   }
 
 
-
   goToDetail(item: any): void {
-    const id = item.record_id;
+    const id =item.$id || item.record_id ;
     this.router.navigate(['content', item.contentType, id ]);
   }
 }

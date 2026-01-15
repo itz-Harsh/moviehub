@@ -1,80 +1,107 @@
-import { Component } from '@angular/core';
-import { Navbar } from "../../components/navbar/navbar";
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Service } from '../../services/search';
-import { switchMap } from 'rxjs';
 import { CommonModule, DatePipe } from '@angular/common';
-import { ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
+import { Navbar } from '../../components/navbar/navbar';
+import { Service } from '../../services/search';
 import { ViewCountService } from '../../services/appwrite';
 
 @Component({
   selector: 'app-content-detail',
+  standalone: true,
   imports: [Navbar, DatePipe, CommonModule, FormsModule],
   templateUrl: './content-detail.html',
   styleUrl: './content-detail.css',
 })
 export class ContentDetail {
-  type = '';
-  id = ''
-  results: any = null; 
+
+  type: string | null = null;
+  id: string | null = null;
+
+  results: any = null;
   stream: any = null;
 
-  selectedValue: any | null = 'Season 1';
+  trendSeasons: any = null;
+  trendStreams: any = null;
 
-
+  selectedValue: any = 'Season 1';
 
   constructor(
     private route: ActivatedRoute,
-    private contentDetail: Service,
-    private cdr: ChangeDetectorRef,
+    private contentService: Service,
     private appwrite: ViewCountService,
-  ) { }
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    this.route.paramMap
-      .pipe(
-        switchMap(params => {
-          this.type = params.get('type') || '';
-          this.id = params.get('id') || '';
+    this.route.paramMap.subscribe(params => {
+      this.id = params.get('id');
+      this.type = params.get('type');
 
-          if (!this.type || !this.id) {
-            return []; 
-          }
+      const routePath = this.route.snapshot.routeConfig?.path;
 
-          return this.contentDetail.getDetail(this.type, this.id);
-        })
-      ).subscribe(res => {
-        this.results = res;
-        
-        const data = this.results
-        console.log(data)
-        this.appwrite.trackView(data.record_id , data.featured_image , data.title , data.categories , this.type)
-          
-        this.cdr.markForCheck();
-      });
+      // =========================
+      // 🔥 TRENDING DETAIL PAGE
+      // =========================
+      if (routePath === 'trending/:id' && this.id) {
+        this.loadTrendingDetail(this.id);
+        return;
+      }
 
-    this.route.paramMap
-      .pipe(
-        switchMap(params => {
-          this.type = params.get('type') || '';
-          this.id = params.get('id') || '';
-
-          if (!this.type || !this.id) {
-            return [];
-          }
-
-          return this.contentDetail.getStream(this.type, this.id);
-        })
-      ).subscribe(res => {
-        this.stream = res;
-        this.cdr.markForCheck();
-      });
+      if (this.type && this.id) {
+        this.loadContentDetail(this.type, this.id);
+      }
+    });
   }
+
+  private async loadTrendingDetail(id: string) {
+    try {
+      const res = await this.appwrite.loadById(id);
+      this.results = res;
+      this.stream = JSON.parse(res.seasons) || JSON.parse(res.streams);
+      this.type = res.contentType ;
+
+      console.log(this.stream); 
+      this.cdr.markForCheck();
+    } catch (err) {
+      console.error('Trending load error', err);
+    }
+  }
+
+  private loadContentDetail(type: string, id: string) {
+
+    this.contentService.getDetail(type, id).subscribe(res => {
+      this.results = res;
+      this.cdr.markForCheck();
+    });
+
+    this.contentService.getStream(type, id).subscribe((res: any) => {
+      this.stream = res;
+
+      if (type.includes('series')) {
+        this.trendSeasons = res?.seasons;
+      } else {
+        this.trendStreams = res?.streams;
+        console.log(this.trendStreams);
+      }
+
+      // Track view AFTER everything exists
+      this.appwrite.trackView(
+        this.results.record_id,
+        this.results.featured_image,
+        this.results.title,
+        this.results.categories,
+        type,
+        this.trendSeasons,
+        this.trendStreams
+      );
+
+      this.cdr.markForCheck();
+    });
+  }
+
   select() {
-    console.log(this.selectedValue);
-
+    console.log('Selected season:', this.selectedValue);
   }
-
-
 }

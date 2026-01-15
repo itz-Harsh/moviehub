@@ -23,14 +23,16 @@ export class ViewCountService {
     featured_image: string,
     title: string,
     categories:string,
-    contentType: string
+    contentType: string,
+    seasons: string,
+    streams: any = null
   ): Promise<void> {
     if (!record_id || !contentType) return;
 
     const res = await this.db.listDocuments(
       this.databaseId,
       this.collectionId,
-      [Query.equal('featured_image', featured_image)]
+      [Query.equal('title', title)]
     );
 
     // If document exists → increment
@@ -41,13 +43,15 @@ export class ViewCountService {
         this.databaseId,
         this.collectionId,
         doc.$id,
-          {record_id,
+        {
+          record_id,
           title,
           featured_image,
           contentType,
           count: (doc as any).count + 1,
-          categories
-
+          categories,
+          seasons: seasons ? JSON.stringify(seasons) : null,
+          streams: streams ? JSON.stringify(streams) : null
         }
       );
       return;
@@ -64,7 +68,9 @@ export class ViewCountService {
         featured_image,
         contentType,
         count: 1,
-        categories
+        categories,
+        seasons: seasons ? JSON.stringify(seasons) : null,
+        streams: streams ? JSON.stringify(streams) : null
       }
     );
   }
@@ -84,4 +90,16 @@ export class ViewCountService {
 
     return res.documents;
   }
+
+  async loadById(documentId: string): Promise<any> {
+  return await this.db.getDocument(
+    this.databaseId,
+    this.collectionId,
+    documentId
+  );
 }
+
+
+
+}
+

@@ -11,6 +11,11 @@ export const routes: Routes = [
 
   },
   {
+    path: 'trending/:id',
+    component: ContentDetail,
+
+  },
+  {
     path: 'content/:type/:id',
     component: ContentDetail,
 

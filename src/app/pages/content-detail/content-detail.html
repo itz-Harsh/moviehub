@@ -25,7 +25,7 @@
                 No Link Found
                 </div>
 
-            <div *ngFor="let stream of stream?.streams" >
+            <div *ngFor="let stream of stream.streams || stream" >
                 <button class="p-2 bg-red-500 text-sm sm:text-base  w-[16rem] sm:w-fit rounded hover:scale-95 ">
 
                     <a [href]="stream.url" target=" "> {{stream.title}} </a>
@@ -45,7 +45,7 @@
                 <div *ngIf="stream?.seasons?.length === 0">
                 No Link Found
                 </div>
-                <option *ngFor="let season of stream?.seasons | keyvalue; let i = index" [ngValue]="season">Season
+                <option *ngFor="let season of stream?.seasons || stream | keyvalue; let i = index" [ngValue]="season">Season
                     {{ season.key.toString().split('_')[1] }}</option>
             </select>
 
