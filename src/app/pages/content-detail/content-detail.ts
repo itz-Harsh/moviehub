@@ -76,7 +76,7 @@ export class ContentDetail {
     this.contentService.getStream(type, id).subscribe((res: any) => {
       this.stream = res;
 
-      if (type.includes('series')) {
+      if (type.includes('series') || type.includes('anime')) {
         this.trendSeasons = res?.seasons;
       } else {
         this.trendStreams = res?.streams;
