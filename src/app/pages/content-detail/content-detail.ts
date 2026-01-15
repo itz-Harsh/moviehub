@@ -41,9 +41,6 @@ export class ContentDetail {
 
       const routePath = this.route.snapshot.routeConfig?.path;
 
-      // =========================
-      // 🔥 TRENDING DETAIL PAGE
-      // =========================
       if (routePath === 'trending/:id' && this.id) {
         this.loadTrendingDetail(this.id);
         return;
@@ -62,7 +59,7 @@ export class ContentDetail {
       this.stream = JSON.parse(res.seasons) || JSON.parse(res.streams);
       this.type = res.contentType ;
 
-      console.log(this.stream); 
+      // console.log(this.stream); 
       this.cdr.markForCheck();
     } catch (err) {
       console.error('Trending load error', err);
@@ -83,7 +80,7 @@ export class ContentDetail {
         this.trendSeasons = res?.seasons;
       } else {
         this.trendStreams = res?.streams;
-        console.log(this.trendStreams);
+        // console.log(this.trendStreams);
       }
 
       // Track view AFTER everything exists
@@ -102,6 +99,6 @@ export class ContentDetail {
   }
 
   select() {
-    console.log('Selected season:', this.selectedValue);
+    console.log("DON'T TOUCH ME !!!");
   }
 }

@@ -59,7 +59,7 @@ export class Home {
 
   try {
     this.results.trendRes = await this.viewCount.loadTrending(10);
-    console.log(this.results.trendRes);
+    // console.log(this.results.trendRes);
   } finally {
     this.loading = false;
     this.cdr.markForCheck();
