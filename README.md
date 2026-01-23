@@ -23,7 +23,6 @@ Top Features
 - ⭐ Mark favorites
 - 🗂️ Simple, clear pages
 - ♿ Accessibility-aware
-- 🌓 Theme: dark + light
 
 What you'll see
 ---------------
